@@ -52,11 +52,11 @@ class Blackjack:
                 new_score = self.score_calculating(self.player_hand)
                 print(f'Your current score is {new_score}')
                 if new_score == 21:
-                    return
-                elif new_score > 21:    
+                    return None
+                if new_score > 21:    
                     return f'{self.name} is BUST'
             else:
-                return
+                return None
     
     def dealer_choice(self):
         current_score = self.score_calculating(self.dealer_hand)
@@ -69,10 +69,9 @@ class Blackjack:
                 return
         if current_score == self.score_calculating(self.player_hand):
             print('Draw!')
-            return
-        else: 
-            print('Dealer wins')
-            print(f"Dealer's score: {self.score_calculating(self.dealer_hand)}")  
+            return 
+        print('Dealer wins')
+        print(f"Dealer's score: {self.score_calculating(self.dealer_hand)}")  
 
     #next to self add in only those arguments that you pass in yourself not via input
     def game_on(self):
@@ -83,17 +82,16 @@ class Blackjack:
         if self.player_hand == 21:
             print('Blackjack! Player wins!')
             return
-    
-        else:
-            result = self.player_choice()
-            if result:
-                print(result)
+
+        result = self.player_choice()
+        if result:
+            print(result)
+            return
+        if self.score_calculating(self.dealer_hand) == 17:
+            if self.score_calculating(self.dealer_hand) > self.score_calculating(self.player_hand):
+                print('Dealer Wins!')
                 return
-            if self.score_calculating(self.dealer_hand) == 17:
-                if self.score_calculating(self.dealer_hand) > self.score_calculating(self.player_hand):
-                    print('Dealer Wins!')
-                    return
-            self.dealer_choice()
+        self.dealer_choice()
                 
 if __name__ == "__main__":
     B = Blackjack()
